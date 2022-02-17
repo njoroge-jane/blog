@@ -84,3 +84,9 @@ class Subscription(db.Model):
     def save_email(self):
         db.session.add(self)
         db.session.commit()
+
+class Quotes:
+
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote        
