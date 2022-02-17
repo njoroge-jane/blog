@@ -1,13 +1,12 @@
-# Minute Pitches
+# BLOGG
 
 ## DESCRIPTION
 
-An application which allows users to use one minute wisely.
-The users will submit their pitches in one minute and other users will vote on them and leave comments to give their feedback on them.
+ A personal blogging website where you can create and share your opinions and other users can read and comment on them. Additionally, there is a feature that displays random quotes to inspire your users.
 
 ### SETUP INSTRUCTIONS
 
-Clone the repository to your local device adding using the link [minute-pitches](git@github.com:njoroge-jane/Minute-Pitch.git)
+Clone the repository to your local device adding using the link [blog](git@github.com:njoroge-jane/blog.git)
 
 [Live link](https://minutepitchespro.herokuapp.com/)
 
