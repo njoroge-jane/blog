@@ -1,0 +1,42 @@
+<nav>
+  <div
+    class="navbar navbar-light sticky-top shadow p-3 mb-5 bg-body rounded"
+    style="background-color: #e3f2fd"
+  >
+    <i
+      class="position-absolute start-0 ms-3 fas fa-feather"
+      style="color: blueviolet; font-size: 150%"
+    ></i>
+    <h3
+      class="position-absolute start-0 ms-5 mt-1"
+      style="font-family: 'Lobster', cursive"
+    >
+      MINUTE PITCHES
+    </h3>
+    <div class="d-flex justify-content-center">
+      <h5 class="m-3"><a class="text-dark" href="/">Home</a></h5>
+      <h5 class="m-3"><a class="text-dark" href="/category/1">Pickup</a></h5>
+      <h5 class="m-3"><a class="text-dark" href="/category/2">Products</a></h5>
+      <h5 class="m-3"><a class="text-dark" href="/category/3">Business</a></h5>
+    </div>
+    {% if current_user.is_authenticated %}
+
+    <a href="{{url_for('main.profile',uname=current_user.username)}}"
+      >{{current_user.username}}</a
+    >
+    <button
+      class="border rounded-pill btn position-absolute end-0 ms-5"
+      style="background-color: blueviolet"
+    >
+      <a class="text-light" href="{{url_for('auth.logout')}}">Sign out</a>
+    </button>
+    {% else %}
+    <button
+      class="border rounded-pill btn position-absolute end-0 ms-5"
+      style="background-color: blueviolet"
+    >
+      <a class="text-light" href="{{url_for('auth.login')}}">Sign in</a>
+    </button>
+    {%endif%}
+  </div>
+</nav>

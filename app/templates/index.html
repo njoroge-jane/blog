@@ -1,0 +1,47 @@
+{%extends 'base.html'%} {%block content%}
+<h2 class="text-center">Pitches</h2>
+{%if pitches%} {%for pitch in pitches%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="card mb-5"
+        style="box-shadow: 5px 5px 5px 5px rgba(137, 43, 226, 0.157)"
+      >
+        <div
+          class="card-title text-center"
+          style="box-shadow: 5px 5px blueviolet"
+        >
+          <h4><i>{{pitch.title}}</i></h4>
+        </div>
+        <div class="card-body">
+          <p>Category : {{pitch.category}}</p>
+          <p>{{pitch.pitch}}</p>
+          <i
+            class="fas fa-thumbs-up me-5"
+            style="color: blueviolet"
+            onclick="{{'count'}}"
+          >
+          </i
+          ><i class="fas fa-thumbs-down" style="color: blueviolet"> [0]</i>
+        </div>
+        <div class="card-footer">
+          <p class="fw-bolder">
+            {{current_user.username}} posted on
+            {{pitch.posted.strftime('%Y-%m-%d')}}
+          </p>
+          <a href="{{url_for('main.comment',id=pitch.id)}}">add a comment</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%} {%endif%}
+<button
+  class="border btn position-absolute start-50 end-50 mt-5 p-3 mb-5"
+  style="background-color: rgba(137, 43, 226, 0.267)"
+>
+  <a class="ratings text-dark fw-bolder" href="/pitch"> ADD PITCH</a>
+</button>
+
+{%endblock%}

@@ -1,0 +1,48 @@
+{%extends 'base.html'%} {% block content %} {%if categories%} {%for category in
+categories%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="card mb-5"
+        style="box-shadow: 5px 5px 5px 5px rgba(137, 43, 226, 0.157)"
+      >
+        <div
+          class="card-title text-center"
+          style="box-shadow: 5px 5px blueviolet"
+        >
+          <h4><i>{{category.title}}</i></h4>
+        </div>
+        <div class="card-body">
+          <i
+            class="fas fa-thumbs-up me-5"
+            style="color: blueviolet"
+            onclick="{{'count'}}"
+          >
+          </i
+          ><i class="fas fa-thumbs-down" style="color: blueviolet"> [0]</i>
+        </div>
+        <div class="card-footer">
+          <p class="fw-bolder">
+            {{current_user.username}} posted on
+            {{category.posted.strftime('%Y-%m-%d')}}
+          </p>
+          <a href="">add a comment</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endfor%} {%else%}
+<h2 class="text-center">None yet</h2>
+
+{%endif%}
+<button
+  class="border btn position-absolute start-50 end-50 mt-5 p-3 mb-5"
+  style="background-color: rgba(137, 43, 226, 0.267)"
+>
+  <a class="ratings text-dark fw-bolder" href="/pitch"> ADD PITCH</a>
+</button>
+
+{%endblock%}

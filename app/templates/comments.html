@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %} {% block
+content%}
+<div class="container">
+  <div class="col-md-8 mt-3">{{ wtf.quick_form(comment_form) }}</div>
+</div>
+<h1 class="text-center">{{pitch.pitch}}</h1>
+{% if comments %} {% for comment in comments %}
+<div
+  class="card"
+  style="
+    width: 70%;
+    height: 50px;
+    border-left: none;
+    border-right: none;
+    margin: auto;
+    background-color: #cfdbd5;
+  "
+>
+  <div class="card-body">
+    <p style="font-weight: 600">{{comment.comment}}</p>
+  </div>
+</div>
+{% endfor %} {% endif %} {% endblock %}

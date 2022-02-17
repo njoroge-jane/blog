@@ -1,0 +1,61 @@
+{% extends 'base.html'%} {% block content %}
+<div class="container">
+  <div class="row">
+    <!-- displaying  Username-->
+    <div class="col-md-4">
+      <h3>{{user.username| capitalize}}</h3>
+
+      <!--Displaying user bio-->
+      {% if user.bio %}
+      <p>{{user.bio}}</p>
+      {%else%}
+      <p>{{user.username| capitalize}} has no bio</p>
+      {% endif %}
+    </div>
+
+    <!--Display profile photo-->
+    <div class="col-md-4">
+      {% if user.profile_pic_path %}
+
+      <img
+        src="{{url_for('static',filename=user.profile_pic_path)}}"
+        alt=""
+        class="img-thumbnail"
+      />
+
+      {%else%}
+      <p>No profile picture</p>
+
+      {% endif %} {% if user == current_user %}
+      <form
+        action="{{url_for('main.update_pic',uname=user.username)}}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="photos" class="form-control" required />
+        <input type="submit" />
+      </form>
+      {%if pitches%} {%for pitch in pitches%}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-5">
+              <div
+                class="card-title text-center"
+                style="box-shadow: 5px 5px blueviolet"
+              >
+                <h4><i>{{pitch.title}}</i></h4>
+              </div>
+              <div class="card-body">
+                <p>Category : {{pitch.category}}</p>
+                <p>{{pitch.pitch}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%endfor%} {%endif%} {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
