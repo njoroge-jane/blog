@@ -28,6 +28,6 @@ def process_results(result_list):
     author = result_list.get('author')
     quote = result_list.get('quote')
 
-    random_quote_object = Quotes(author, quote)
+    quote_object = Quotes(author, quote)
 
-    return random_quote_object
+    return quote_object

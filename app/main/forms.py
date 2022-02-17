@@ -19,5 +19,5 @@ class SubscriptionForm(FlaskForm):
 
     username = StringField('Your Name', validators=[InputRequired()])
     email = TextAreaField('Email', validators=[InputRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Subscribe')
 

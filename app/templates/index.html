@@ -1,5 +1,6 @@
-{%extends 'base.html'%} {%block content%}
+{%extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {%block content%}
 <h2 class="text-center">Blogs</h2>
+
 {%if blogs%} {%for blog in blogs%}
 <div class="container">
   <div class="row">
@@ -29,6 +30,9 @@
   </div>
 </div>
 {%endfor%} {%endif%}
+<div class="col-md-4">
+{{wtf.quick_form(subscription_form)}}
+</div>
 <button
   class="border btn position-absolute start-50 end-50 mt-5 p-3 mb-5"
   style="background-color: rgba(95, 226, 43, 0.267)"

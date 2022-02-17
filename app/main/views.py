@@ -4,7 +4,7 @@ from . import main
 from app.auth.forms import UpdateProfile
 from .. import db, photos
 from flask_login import login_required, current_user
-from ..models import Blogs, Comments,Blogger
+from ..models import Blogs, Comments,Blogger, Quotes, Subscription
 from .forms import BlogForm, CommentsForm,SubscriptionForm
 
 
@@ -13,8 +13,17 @@ from .forms import BlogForm, CommentsForm,SubscriptionForm
 def index():
     blogs = Blogs.query.all()
     title = 'Home Page'
+    # quote = Quotes(quote=quote,author=author)
+    blogs = Blogs.query.all()
+    form = SubscriptionForm()
+    # if form.validate_on_submit():
+    #     email = form.email.data
+    #     new_subscriber = Subscription(email = email)
+    #     new_subscriber.save_email()
+    #     return redirect(url_for('main.index'))  
 
-    return render_template('index.html', title=title, blogs=blogs)
+    return render_template('index.html',title=title, blogs = blogs, blogger = blogs, subscription_form = form)
+    
 
 
 @main.route('/user/<uname>')
@@ -70,7 +79,7 @@ def new_blog():
         blog_title = form.title.data
         blog = form.blog.data
         new_blog = Blogs(title=blog_title,
-                            category=category, blog=blog, user=current_user)
+                          blog=blog, user=current_user)
         new_blog.save_blog()
         return redirect(url_for('.profile', uname=user.username))
 
