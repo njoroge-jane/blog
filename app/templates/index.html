@@ -1,6 +1,6 @@
 {%extends 'base.html'%} {%block content%}
-<h2 class="text-center">Pitches</h2>
-{%if pitches%} {%for pitch in pitches%}
+<h2 class="text-center">Blogs</h2>
+{%if blogs%} {%for blog in blogs%}
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -12,25 +12,17 @@
           class="card-title text-center"
           style="box-shadow: 5px 5px blueviolet"
         >
-          <h4><i>{{pitch.title}}</i></h4>
+          <h4><i>{{blog.title}}</i></h4>
         </div>
         <div class="card-body">
-          <p>Category : {{pitch.category}}</p>
-          <p>{{pitch.pitch}}</p>
-          <i
-            class="fas fa-thumbs-up me-5"
-            style="color: blueviolet"
-            onclick="{{'count'}}"
-          >
-          </i
-          ><i class="fas fa-thumbs-down" style="color: blueviolet"> [0]</i>
+          <p>{{blog.blog}}</p>
         </div>
         <div class="card-footer">
           <p class="fw-bolder">
             {{current_user.username}} posted on
-            {{pitch.posted.strftime('%Y-%m-%d')}}
+            {{blog.posted.strftime('%Y-%m-%d')}}
           </p>
-          <a href="{{url_for('main.comment',id=pitch.id)}}">add a comment</a>
+          <a href="{{url_for('main.comment',id=blog.id)}}">add a comment</a>
         </div>
       </div>
     </div>
@@ -41,7 +33,7 @@
   class="border btn position-absolute start-50 end-50 mt-5 p-3 mb-5"
   style="background-color: rgba(137, 43, 226, 0.267)"
 >
-  <a class="ratings text-dark fw-bolder" href="/pitch"> ADD PITCH</a>
+  <a class="ratings text-dark fw-bolder" href="/blog"> ADD BLOG</a>
 </button>
 
 {%endblock%}

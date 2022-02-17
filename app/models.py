@@ -75,3 +75,12 @@ class Comments(db.Model):
         comments = Comments.query.filter_by(blog_id=id).all()
         return comments
 
+class Subscription(db.Model):
+    __tablename__ = 'subcription'
+
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(255), unique = True)
+
+    def save_email(self):
+        db.session.add(self)
+        db.session.commit()

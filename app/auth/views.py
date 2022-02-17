@@ -2,35 +2,18 @@ from click import confirm
 from flask import render_template, redirect, url_for, flash, request
 from . import auth
 from flask_login import login_user, logout_user, login_required
-from .forms import RegistrationForm, LoginForm,SubscriptionForm
-from ..models import User
+from .forms import RegistrationForm, LoginForm
+from ..models import Blogger
 from .. import db
 from ..email import mail_message
 
-user = User()
-
-@auth.route('/subscribe', methods=["GET", "POST"])
-def register():
-    form = SubscriptionForm()
-    if form.validate_on_submit():
-        user = User(email=form.email.data,
-                    username=form.username.data)
-        db.session.add(user)
-        db.session.commit()
-        for post in blog:
-           mail_message("New post alert",
-                     "email/welcome_user", user.email, user=user)
-        return redirect(url_for('auth.login'))
-    title = "Subscribe"
-    return render_template('auth/register.html', Subscription_form=form, title=title)
-
-
+user = Blogger()
 
 @auth.route('/register', methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data,
+        user = Blogger(email=form.email.data,
                     username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -44,14 +27,14 @@ def register():
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        user = User.query.filter_by(email=login_form.email.data).first()
+        user = Blogger.query.filter_by(email=login_form.email.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user, login_form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('Invalid username or Password')
 
-    title = "minute-pitch login"
+    title = "login"
 
     return render_template('auth/login.html', login_form=login_form, title=title)
 

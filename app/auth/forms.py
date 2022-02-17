@@ -5,13 +5,6 @@ from ..models import User
 from wtforms import ValidationError
 
 
-class SubscriptionForm(FlaskForm):
-
-    username = StringField('Your Name', validators=[InputRequired()])
-    email = TextAreaField('Email', validators=[InputRequired()])
-    submit = SubmitField('Submit')
-
-
 class RegistrationForm(FlaskForm):
     email = StringField('Your Email Address', validators=[
                         InputRequired(), Email()])
