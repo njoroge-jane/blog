@@ -4,12 +4,10 @@ from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import InputRequired
 
 
-class PitchForm(FlaskForm):
+class BlogForm(FlaskForm):
 
-    title = StringField('Pitch Title', validators=[InputRequired()])
-    category = SelectField('Which category?', choices=[(
-        1, 'Pickup'), (2, 'Products'), (3, 'Business')], validators=[InputRequired()])
-    pitch = TextAreaField('Write your pitch', validators=[InputRequired()])
+    title = StringField('Blog Title', validators=[InputRequired()])
+    blog = TextAreaField('Write your opinion', validators=[InputRequired()])
     submit = SubmitField('Post')
 
 

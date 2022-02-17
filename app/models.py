@@ -6,12 +6,12 @@ from datetime import datetime
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(blogger_id):
+    return Blogger.query.get(int(blogger_id))
 
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+class Blogger(UserMixin, db.Model):
+    __tablename__ = 'blogger'
     pass_secure = db.Column(db.String(255))
 
     id = db.Column(db.Integer, primary_key=True)
@@ -19,8 +19,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=True, index=True)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    # role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
-    pitches = db.relationship('Pitches', backref='user', lazy="dynamic")
+    blogs = db.relationship('Blogs', backref='blogger', lazy="dynamic")
 
     @property
     def password(self):
@@ -37,29 +36,26 @@ class User(UserMixin, db.Model):
         return f'User {self.username}'
 
 
-class Pitches(db.Model):
+class Blogs(db.Model):
 
-    __tablename__ = 'pitches'
+    __tablename__ = 'blogs'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
-    category = db.Column(db.String)
-    pitch = db.Column(db.String)
+    blog = db.Column(db.String)
     posted = db.Column(db.DateTime, default=datetime.utcnow())
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    blogger_id = db.Column(db.Integer, db.ForeignKey("blogger.id"))
     comments_id = db.relationship(
         'Comments', backref='commenter', lazy='dynamic')
-    votes = db.relationship('Votes', backref='voter', lazy="dynamic")
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
-    def save_pitch(self):
+    def save_blog(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_pitches(cls, id):
-        pitches = Pitches.query.filter_by(user_id=id).all()
-        return pitches
+    def get_blogs(cls, id):
+        blogs = Blogs.query.filter_by(blogger_id=id).all()
+        return blogs
 
 
 class Comments(db.Model):
@@ -68,7 +64,7 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow())
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
 
     def save_comment(self):
         db.session.add(self)
@@ -76,24 +72,6 @@ class Comments(db.Model):
 
     @classmethod
     def get_comments(cls, id):
-        comments = Comments.query.filter_by(pitch_id=id).all()
+        comments = Comments.query.filter_by(blog_id=id).all()
         return comments
 
-
-class Category(db.Model):
-    __tablename__ = 'category'
-
-    id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.String(255))
-
-    pitch_id = db.relationship('Pitches', backref='categories', lazy='dynamic')
-
-
-class Votes(db.Model):
-
-    __tablename__ = 'votes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    votes = db.Column(db.Integer)
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
